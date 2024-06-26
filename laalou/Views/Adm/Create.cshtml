@@ -1,0 +1,41 @@
+﻿@model Produit;
+@{
+    ViewData["Title"] = "Create/Adm";
+}
+
+<form asp-action="Create" methode="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-bg-danger-primary text-center">Create A Scenes</h2>
+            <hr />
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Nom"></label>
+            <input asp-for="Nom" class="form-control" />
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" type="text" class="form-control" />
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Photo"></label>
+            <input asp-for="Photo" type="text" class="form-control" />
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Prix"></label>
+            <input asp-for="Prix" type="text" class="form-control" />
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Category" asp-action="Index" class="btn btn-outline-secondary border" style="width.150px">
+                    Back to List
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+</form>

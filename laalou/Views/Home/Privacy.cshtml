@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+
+
+
+
+          
+@model laalou.Models.Produit
+
+@section scripts {
+    <script>
+        function addToCart(productId) {
+            // Récupérer la quantité du champ d'entrée
+            var quantity = parseInt($("#cart_quantity").val(), 10);
+
+            // Vérifier si la quantité est valide
+            if (isNaN(quantity) || quantity < 1 || quantity > 5) {
+                alert("Veuillez entrer une quantité valide entre 1 et 5.");
+                return;
+            }
+
+            // Envoyer la requête AJAX au serveur pour ajouter le produit au panier
+            $.ajax({
+                url: "/Cart", // Mettez à jour l'URL avec le chemin correct vers votre action du contrôleur
+                method: "POST",
+                data: { productId: productId, Qty: quantity },
+                success: function (response) {
+                    // La requête a réussi, vous pouvez mettre à jour l'interface utilisateur ou effectuer d'autres actions nécessaires
+                    alert("Produit ajouté au panier avec succès!");
+                },
+                error: function (error) {
+                    // La requête a échoué, vous pouvez gérer les erreurs ici
+                    alert("Erreur lors de l'ajout du produit au panier.");
+                }
+            });
+        }
+    </script>
+}
+
+<main class="cd__main">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="main-img">
+                    <img src="~/images/@Model.Photo" alt="ProductS" class="img-fluid" />
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="main-description px-2">
+                    <div class="category text-bold">
+                        Category
+                    </div>
+                    <div class="product-title text-bold my-3">
+                        @Model.Nom
+                    </div>
+                    <div class="price-area my-4">
+                        <p class="new-price text-bold mb-1">@Model.Prix</p>
+                    </div>
+                    <div class="buttons d-flex my-5">
+                        <div class="block">
+                            <button class="shadow btn custom-btn" onclick="addToCart(@Model.Id)">Add to cart</button>
+                        </div>
+                        <div class="block quantity">
+                            <!--  <input type="number" class="form-control" id="cart_quantity" value="1" min="0" max="5" placeholder="Enter email" name="cart_quantity">-->
+                            <button class="shadow btn custom-btn" data-product-id="@Model.Id" onclick="addToCart(@Model.Id)">Add to cart</button>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="product-details my-4">
+                    <!-- Vous pouvez ajouter d'autres détails ici -->
+                    <p class="details-title text-color mb-1">Product Details</p>
+                    <p class="description">@Model.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ... Autres sections de la vue ... -->
+</main>
+
+

@@ -1,0 +1,44 @@
+﻿@model List<laalou.Models.Produit>
+
+<section id="portfolio" class="portfolio">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Portfolio</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <ul id="portfolio-flters">
+                    <li data-filter="*" class="filter-active">All</li>
+                    @foreach (var item in Model.Select(p => p.Catid).Distinct())
+                    {
+                        <li data-filter=".filter-@item">@(item == 1 ? "MOBILE" : item == 2 ? "Smart WATCHE" : item == 3 ? "Camera" : item == 4 ? "Airpods" : item == 5 ? "Playstation" : "P")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="row portfolio-container">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 portfolio-item filter-@item.Catid">
+                    <div class="portfolio-wrap">
+                        <a href="@Url.Action("Privacy", "Home", new { id = item.Id })">
+                            <!-- Ajoutez ce lien autour de l'image -->
+                            <img src="~/images/@item.Photo" class="img-fluid" alt="">
+                        </a>
+                        <div class="portfolio-info">
+                            <h4>@item.Nom</h4>
+                            <p>@(item.Catid == 1 ? "Mobiles" : item.Catid == 2 ? "Smart Watches" : item.Catid == 3 ? "Camera" : item.Catid == 4 ? "Airpods" : item.Catid == 5 ? "Playstation" : "P")</p>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="~/images/@item.Photo" data-gallery="portfolioGallery" class="portfolio-lightbox" title="@item.Nom"><i class="bx bx-plus"></i></a>
+                            <a href="@Url.Action("Privacy", "Home", new { id = item.Id })" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
